@@ -38,108 +38,99 @@ class MyHomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                        Container(
-                          margin: const EdgeInsets.only(right:6),
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.purple, Colors.pink],
-                            ),
-                            borderRadius: BorderRadius.circular(62),
+                      Container(
+                        margin: const EdgeInsets.only(right:6),
+                        height: 150,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.purple, Colors.pink],
                           ),
-                          child: const Text("Hello, Flutter!"),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(62),
+                              topRight: Radius.circular(2),
+                              bottomLeft: Radius.circular(2),
+                              bottomRight: Radius.circular(62),
+                            ),
                         ),
+                        child: const Text(""),
+                      ),
 
-                        Container(
-                          margin: const EdgeInsets.all(6),
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.blue, Colors.cyan],
-                            ),
-                            borderRadius: BorderRadius.circular(62),
+                      Container(
+                        margin: const EdgeInsets.only(right:6),
+                        height: 150,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.blue, Colors.cyan],
                           ),
-                          child: const Text("Hello, Flutter!"),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(62),
+                              topRight: Radius.circular(2),
+                              bottomLeft: Radius.circular(2),
+                              bottomRight: Radius.circular(62),
+                            ),
                         ),
+                        child: const Text(""),
+                      ),
 
-                        Container(
-                          margin: const EdgeInsets.all(6),
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.green, Colors.lightGreenAccent],
-                            ),
-                            borderRadius: BorderRadius.circular(62),
+                      Container(
+                        margin: const EdgeInsets.only(right:6),
+                        height: 150,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.green, Colors.lightGreenAccent],
                           ),
-                          child: const Text("Hello, Flutter!"),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(62),
+                              topRight: Radius.circular(2),
+                              bottomLeft: Radius.circular(2),
+                              bottomRight: Radius.circular(62),
+                            ),
                         ),
+                        child: const Text(""),
+                      ),
 
-                        Container(
-                          margin: const EdgeInsets.only(left: 6),
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.orange, Colors.deepOrange],
-                            ),
-                            borderRadius: BorderRadius.circular(62),
+                      Container(
+                        margin: const EdgeInsets.only(right:6),
+                        height: 150,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.orange, Colors.deepOrange],
                           ),
-                          child: const Text("Hello, Flutter!"),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(62),
+                              topRight: Radius.circular(2),
+                              bottomLeft: Radius.circular(2),
+                              bottomRight: Radius.circular(62),
+                            ),
                         ),
+                        child: const Text(""),
+                      ),
                     ],
                   ),
                 ),
             
-                Container(
-                  margin: const EdgeInsets.only(bottom: 11),
-                  height: 200,
-                  width: double.infinity,
-                  
-                  decoration: BoxDecoration( 
-                    gradient: LinearGradient(
-                      colors: [Colors.purple, Colors.pink],
-                        ),
-                    borderRadius: BorderRadius.circular(62)
-                ),
-                    child: const Text("Hello, Flutter!"),
-                     ),
+                
         
                     
             
                 Container(
                   margin: const EdgeInsets.only(bottom: 11),
-                  height: 200,
+                  height: 900,
                   width: double.infinity,
-                  color: Colors.yellow,
-                  child: const Text("Hello, Flutter!"),
+                  decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.lightBlue, Colors.red],
+                            ),
+                            borderRadius: BorderRadius.circular(62)
+                          ),
+                  child: const Text(""),
                       ),
             
-                Container(
-                  margin: const EdgeInsets.only(bottom: 11),
-                  height: 200,
-                  width: double.infinity,
-                  color: Colors.orange,
-                  child: const Text("Hello, Flutter!"),
-                      ),
-            
-                Container(
-                  margin: const EdgeInsets.only(bottom: 11),
-                  height: 200,
-                  width: double.infinity,
-                  color: Colors.deepOrange,
-                  child: const Text("Hello, Flutter!"),
-                      ),
-            
-                Container(
-                  margin: const EdgeInsets.only(bottom: 11),
-                  height: 200,
-                  width: double.infinity,
-                  color: Colors.grey,
-                  child: const Text("Hello, Flutter!"),
-                      ),
+                
             
                
               ],
