@@ -38,37 +38,57 @@ class MyHomePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.only(right:6),
-                        height: 200,
-                        width: 200,
-                        color: Colors.lightGreen,
-                        child: const Text("Hello, Flutter!"),
+                        Container(
+                          margin: const EdgeInsets.only(right:6),
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.purple, Colors.pink],
                             ),
+                            borderRadius: BorderRadius.circular(62),
+                          ),
+                          child: const Text("Hello, Flutter!"),
+                        ),
 
-                      Container(
-                        margin: const EdgeInsets.all(6),
-                        height: 200,
-                        width: 200,
-                        color: Colors.greenAccent,
-                        child: const Text("Hello, Flutter!"),
+                        Container(
+                          margin: const EdgeInsets.all(6),
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.blue, Colors.cyan],
                             ),
+                            borderRadius: BorderRadius.circular(62),
+                          ),
+                          child: const Text("Hello, Flutter!"),
+                        ),
 
-                      Container(
-                        margin: const EdgeInsets.all(6),
-                        height: 200,
-                        width: 200,
-                        color: Colors.blueGrey,
-                        child: const Text("Hello, Flutter!"),
+                        Container(
+                          margin: const EdgeInsets.all(6),
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.green, Colors.lightGreenAccent],
                             ),
+                            borderRadius: BorderRadius.circular(62),
+                          ),
+                          child: const Text("Hello, Flutter!"),
+                        ),
 
-                      Container(
-                        margin: const EdgeInsets.only(left: 6),
-                        height: 200,
-                        width: 200,
-                        color: Colors.teal,
-                        child: const Text("Hello, Flutter!"),
+                        Container(
+                          margin: const EdgeInsets.only(left: 6),
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.orange, Colors.deepOrange],
                             ),
+                            borderRadius: BorderRadius.circular(62),
+                          ),
+                          child: const Text("Hello, Flutter!"),
+                        ),
                     ],
                   ),
                 ),
@@ -77,9 +97,17 @@ class MyHomePage extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 11),
                   height: 200,
                   width: double.infinity,
-                  color: const Color.fromARGB(255, 139, 193, 236),
-                  child: const Text("Hello, Flutter!"),
-                      ),
+                  
+                  decoration: BoxDecoration( 
+                    gradient: LinearGradient(
+                      colors: [Colors.purple, Colors.pink],
+                        ),
+                    borderRadius: BorderRadius.circular(62)
+                ),
+                    child: const Text("Hello, Flutter!"),
+                     ),
+        
+                    
             
                 Container(
                   margin: const EdgeInsets.only(bottom: 11),
