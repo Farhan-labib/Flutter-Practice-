@@ -24,24 +24,22 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var arrnames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve'];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Demo Home Page'),
       ),
-      body: 
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.all(86.0),
-            margin: EdgeInsets.only(top: 220.0),
-            color: Colors.blue,
-            child: Text("Login")
-          
-          
-            ),
-        ],
+      body: ListView.separated(
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: const Icon(Icons.person),
+            title: Text(arrnames[index]),
+            subtitle: Text('${index + 1}'),
+            trailing: const Icon(Icons.arrow_forward),
+          );
+        },
+        separatorBuilder: (context, index) => const Divider(),
+        itemCount: arrnames.length,
       )
     );
   }
