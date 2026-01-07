@@ -27,12 +27,14 @@ class MyHomePage extends StatelessWidget {
     var arrnames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve'];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Demo Home Page'),
+        title: const Text('Practice'),
       ),
       body: ListView.separated(
         itemBuilder: (context, index) {
           return ListTile(
-            leading: const Icon(Icons.person),
+            leading: CircleAvatar(
+              child: Text(arrnames[index][0]),
+            ),
             title: Text(arrnames[index]),
             subtitle: Text('${index + 1}'),
             trailing: const Icon(Icons.arrow_forward),
