@@ -1,8 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'utils/validators.dart';
+import 'utils/loading_button.dart';
 import 'package:flutter/material.dart';
 import 'screens/signup_page.dart';
 import 'screens/splash_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -41,12 +47,38 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void _login() {
+  bool _isLoading = false;
+
+  Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
-      // Handle login logic here
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login successful!')),
-      );
+      setState(() => _isLoading = true);
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login successful!')),
+        );
+        // Navigate to home or dashboard if needed
+      } on FirebaseAuthException catch (e) {
+        String msg = 'Login failed';
+        if (e.code == 'user-not-found') {
+          msg = 'No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          msg = 'Wrong password provided.';
+        } else if (e.code == 'invalid-email') {
+          msg = 'Invalid email address.';
+        } else {
+          msg = e.message ?? msg;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(msg)),
+        );
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -92,15 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               labelText: 'Enter Email',
                             ),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+').hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            },
+                            validator: validateEmail,
                           ),
                           const SizedBox(height: 16.0),
                           TextFormField(
@@ -121,27 +145,17 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               labelText: 'Enter Password',
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
+                            validator: validatePassword,
                           ),
                           const SizedBox(height: 16.0),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: _login,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.deepPurple,
-                                foregroundColor: Colors.white,
-                                textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              child: const Text('LOGIN'),
+                          LoadingButton(
+                            isLoading: _isLoading,
+                            onPressed: _login,
+                            text: 'LOGIN',
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepPurple,
+                              foregroundColor: Colors.white,
+                              textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(height: 6.0),

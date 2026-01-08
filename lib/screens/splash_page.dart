@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../wrapper.dart';
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -13,9 +14,12 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
-  });
+    Timer(const Duration(seconds: 5), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MyWidget()),
+      );
+    });
   }
   @override
   Widget build(BuildContext context) {
