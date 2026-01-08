@@ -29,14 +29,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var emailtext = TextEditingController();
-  var passwordtext = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      // Handle login logic here
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login successful!')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -48,68 +65,97 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Center(
               child: SizedBox(
-                height: 400,
-                width: 300,
+                height: 420,
+                width: 320,
                 child: Card(
                   shadowColor: Colors.purple,
                   elevation: 7,
-                  margin: EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(16),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Welcome Back", style: Theme.of(context).textTheme.headlineMedium),
-                        SizedBox(height: 16.0),
-                        TextField(
-                          controller: emailtext,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              borderSide: BorderSide(color: Colors.purple),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text("Welcome Back", style: Theme.of(context).textTheme.headlineMedium),
+                          const SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                                borderSide: const BorderSide(color: Colors.purple),
+                              ),
+                              prefixIcon: const Icon(Icons.email),
+                              labelText: 'Enter Email',
                             ),
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'Enter Email',
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+').hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
                           ),
-                        ),
-                        SizedBox(height: 16.0),
-                        TextField(
-                          controller: passwordtext,
-                          obscureText: !_isPasswordVisible,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              borderSide: BorderSide(color: Colors.purple),
+                          const SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: !_isPasswordVisible,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                                borderSide: const BorderSide(color: Colors.purple),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                              labelText: 'Enter Password',
                             ),
-                            suffixIcon: IconButton(
-                              icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              if (value.length < 6) {
+                                return 'Password must be at least 6 characters';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16.0),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: _login,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.deepPurple,
+                                foregroundColor: Colors.white,
+                                textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              child: const Text('LOGIN'),
+                            ),
+                          ),
+                          const SizedBox(height: 6.0),
+                          SizedBox(
+                            width: double.infinity,
+                            child: OutlinedButton(
                               onPressed: () {
-                                setState(() {
-                                  _isPasswordVisible = !_isPasswordVisible;
-                                });
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage()));
                               },
+                              child: const Text("Create Account"),
                             ),
-                            labelText: 'Enter Password',
                           ),
-                        ),
-                        SizedBox(height: 16.0),
-                        ElevatedButton(
-                          onPressed: () {
-                            String email = emailtext.text.toString();
-                            String password = passwordtext.text.toString();
-                            print("email: $email");
-                            print("password: $password");
-                          },
-                          child: Text('LOGIN', style: TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
-                        SizedBox(height: 6.0),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage()));
-                          },
-                          child: Text("Create Account")),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
