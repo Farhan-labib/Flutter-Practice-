@@ -11,6 +11,7 @@ class DashboardPage extends StatelessWidget {
         title: const Text('Dashboard'),
       ),
       body: Center(
+        
         child: ElevatedButton(
           onPressed: () async {
             await FirebaseAuth.instance.signOut();
